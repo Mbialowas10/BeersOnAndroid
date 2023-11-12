@@ -43,6 +43,8 @@ import coil.compose.rememberImagePainter
 import com.mbialowas.beersonandroid.R
 import com.mbialowas.beersonandroid.api.BeersManager
 import com.mbialowas.beersonandroid.model.BeerItem
+import java.math.BigDecimal
+import java.math.RoundingMode
 
 @Composable
 fun Beers(beersManager: BeersManager){
@@ -122,7 +124,7 @@ fun BeerCard(
                 Column {
                     Row {
                         Text(
-                            text = (beerItem.rating.average/100).toString(),
+                            text = "Average Vote: " + BigDecimal(beerItem.rating.average).setScale(2,RoundingMode.HALF_UP).toString() + "/5",
                             modifier = Modifier.padding(end = 8.dp),
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis,
@@ -130,7 +132,7 @@ fun BeerCard(
                             color = Color.White
                         )
                         Text(
-                            text = beerItem.rating.reviews.toString() + "# of Reviews",
+                            text = "# of Reviews" + beerItem.rating.reviews.toString(),
                             modifier = Modifier.padding(end = 8.dp),
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis,
