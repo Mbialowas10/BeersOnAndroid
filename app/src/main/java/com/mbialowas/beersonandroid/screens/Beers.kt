@@ -54,7 +54,7 @@ fun Beers(beersManager: BeersManager){
     val price:String
 
     for (beer in beers){
-        Log.i("name", "${beer.name}")
+        Log.i("name", "${beer.rating}")
     }
     LazyColumn{
         items(beers){beer->
@@ -119,6 +119,27 @@ fun BeerCard(
                     style = MaterialTheme.typography.bodyLarge,
                     color = Color.White
                 )
+                Column {
+                    Row {
+                        Text(
+                            text = (beerItem.rating.average/100).toString(),
+                            modifier = Modifier.padding(end = 8.dp),
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                            style = MaterialTheme.typography.bodySmall,
+                            color = Color.White
+                        )
+                        Text(
+                            text = beerItem.rating.reviews.toString() + "# of Reviews",
+                            modifier = Modifier.padding(end = 8.dp),
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                            style = MaterialTheme.typography.bodySmall,
+                            color = Color.White
+                        )
+                    }
+                }
+
             }
             Spacer(modifier = Modifier.height(10.dp))
 

@@ -14,6 +14,6 @@ data class BeerItem(
     val name: String,
     @Json(name = "price")
     val price: String,
-    //@Json(name = "rating")
-    //val rating: Rating
+    @Json(name = "rating")
+    val rating: Rating
 )
