@@ -1,5 +1,6 @@
 package com.mbialowas.beersonandroid.screens
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -14,6 +15,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -37,16 +40,33 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mbialowas.beersonandroid.R
+import com.mbialowas.beersonandroid.api.BeersManager
+import com.mbialowas.beersonandroid.model.BeerItem
 
 @Composable
-fun Beers(){
+fun Beers(beersManager: BeersManager){
+    val beers = beersManager.beersResponse.value
+    Log.d("beers", "$beers")
+    val name:String
+    val image:String
+    val id:String
+    val price:String
 
-    Column {
-        BeerCard(name="Bud Light")
-
-        BeerCard(name="Geeko")
-        BeerCard(name="Mike")
+    for (beer in beers){
+        Log.i("name", "${beer.name}")
     }
+    LazyColumn{
+        items(beers){beer->
+            BeerCard(beerItem = beer)
+        }
+    }
+
+//    Column {
+//        BeerCard(name="Bud Light")
+//
+//        BeerCard(name="Geeko")
+//        BeerCard(name="Mike")
+//    }
 
 
 
@@ -54,7 +74,7 @@ fun Beers(){
 
 @Composable
 fun BeerCard(
-    name: String,
+    beerItem: BeerItem
 ){
     Column(modifier = Modifier
 
@@ -83,7 +103,7 @@ fun BeerCard(
             Column {
                 Text(
                     color = Color.White,
-                    text = name,
+                    text = beerItem.name,
                     modifier = Modifier
                         .padding(top = 8.dp, end = 8.dp),
                     style = TextStyle(fontSize = 24.sp),
