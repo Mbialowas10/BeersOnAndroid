@@ -39,6 +39,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.rememberImagePainter
 import com.mbialowas.beersonandroid.R
 import com.mbialowas.beersonandroid.api.BeersManager
 import com.mbialowas.beersonandroid.model.BeerItem
@@ -96,7 +97,8 @@ fun BeerCard(
                 modifier = Modifier
                     .size(50.dp)
                     .clip(CircleShape),
-                painter = painterResource(id = R.drawable.bluemoon),
+                //painter = painterResource(id = R.drawable.bluemoon),
+                painter = rememberImagePainter(data=beerItem.image),
                 contentDescription = "Beer",
 
                 )
@@ -110,7 +112,7 @@ fun BeerCard(
                     maxLines = 1
                 ) // end Text
                 Text(
-                    text = "Description goes here",
+                    text = beerItem.price,
                     modifier = Modifier.padding(end = 8.dp),
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
