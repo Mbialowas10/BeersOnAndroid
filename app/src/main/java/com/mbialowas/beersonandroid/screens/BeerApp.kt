@@ -9,3 +9,4 @@ fun BeerApp(beersManager: BeersManager){
     // list of beers on home page
     Beers(BeersManager())
 }
+

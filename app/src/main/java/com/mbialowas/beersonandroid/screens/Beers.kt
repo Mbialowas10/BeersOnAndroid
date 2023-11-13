@@ -2,6 +2,7 @@ package com.mbialowas.beersonandroid.screens
 
 import android.util.Log
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -28,6 +29,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -58,7 +60,7 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 
 @Composable
-fun Beers(beersManager: BeersManager){
+fun Beers(beersManager: BeersManager,scrollState: ScrollState){
     val beers = beersManager.beersResponse.value
     Log.d("beers", "$beers")
     val name:String
@@ -90,11 +92,12 @@ fun Beers(beersManager: BeersManager){
 fun BeerCard(
     beerItem: BeerItem
 
+
 ){
     var isIconChanged by remember { mutableStateOf(false) }
     Column(modifier = Modifier
 
-        .border(2.dp, Color.Red, shape = RectangleShape)
+        .border(1.dp, Color.Red, shape = RectangleShape)
         .padding(5.dp)
         //.size(60.dp)
 
@@ -174,3 +177,13 @@ fun BeerCard(
 
     }
 } // end BeerCard Composable
+
+@Composable
+fun Common(scrollState: ScrollState){
+   Scaffold(
+        bottomBar = {},){
+
+   }
+        Navigation()
+   )
+}
