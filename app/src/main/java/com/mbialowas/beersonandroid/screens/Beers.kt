@@ -19,16 +19,27 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.Divider
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.RectangleShape
@@ -78,7 +89,9 @@ fun Beers(beersManager: BeersManager){
 @Composable
 fun BeerCard(
     beerItem: BeerItem
+
 ){
+    var isIconChanged by remember { mutableStateOf(false) }
     Column(modifier = Modifier
 
         .border(2.dp, Color.Red, shape = RectangleShape)
@@ -132,13 +145,25 @@ fun BeerCard(
                             color = Color.White
                         )
                         Text(
-                            text = "# of Reviews" + beerItem.rating.reviews.toString(),
+                            text = "# of Reviews " + beerItem.rating.reviews.toString(),
                             modifier = Modifier.padding(end = 8.dp),
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis,
                             style = MaterialTheme.typography.bodySmall,
                             color = Color.White
                         )
+                        Button(
+                            onClick = {
+                                isIconChanged = !isIconChanged
+
+                            }
+                        ) {
+                            Icon(
+                                modifier = Modifier.size(24.dp).scale(2.5f),
+                                imageVector = if (isIconChanged) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
+                                contentDescription = "Add a favorite"
+                            )
+                        }
                     }
                 }
 
