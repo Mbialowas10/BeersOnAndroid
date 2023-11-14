@@ -9,5 +9,5 @@ fun BottomMenu(){
         BottomNavItems.Like,
         BottomNavItems.Profile
     )
-    BottomNavigation
+
 }

@@ -56,11 +56,12 @@ import coil.compose.rememberImagePainter
 import com.mbialowas.beersonandroid.R
 import com.mbialowas.beersonandroid.api.BeersManager
 import com.mbialowas.beersonandroid.model.BeerItem
+import com.mbialowas.beersonandroid.navigation.BottomNavItems
 import java.math.BigDecimal
 import java.math.RoundingMode
 
 @Composable
-fun Beers(beersManager: BeersManager,scrollState: ScrollState){
+fun Beers(beersManager: BeersManager){
     val beers = beersManager.beersResponse.value
     Log.d("beers", "$beers")
     val name:String
@@ -180,10 +181,10 @@ fun BeerCard(
 
 @Composable
 fun Common(scrollState: ScrollState){
-   Scaffold(
-        bottomBar = {},){
-
-   }
-        Navigation()
-   )
+//   Scaffold(
+//        bottomBar = {},){
+//
+//   }
+//        BottomNavItems
+//   )
 }
