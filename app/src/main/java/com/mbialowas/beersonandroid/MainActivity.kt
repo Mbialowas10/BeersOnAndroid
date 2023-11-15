@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.mbialowas.beersonandroid.api.BeersManager
+
 import com.mbialowas.beersonandroid.screens.BeerApp
 
 import com.mbialowas.beersonandroid.ui.theme.BeersOnAndroidTheme
@@ -25,7 +26,9 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
+                    // fetches our beers from api when class is initialized
                     val beersManager: BeersManager = BeersManager()
+
                     BeerApp(beersManager)
                 }
             }

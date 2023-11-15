@@ -52,6 +52,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
 import com.mbialowas.beersonandroid.R
 import com.mbialowas.beersonandroid.api.BeersManager
@@ -61,7 +62,7 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 
 @Composable
-fun Beers(beersManager: BeersManager){
+fun Beers(beersManager: BeersManager, navController: NavController){
     val beers = beersManager.beersResponse.value
     Log.d("beers", "$beers")
     val name:String
@@ -72,11 +73,22 @@ fun Beers(beersManager: BeersManager){
     for (beer in beers){
         Log.i("name", "${beer.rating}")
     }
-    LazyColumn{
-        items(beers){beer->
-            BeerCard(beerItem = beer)
+    Column(horizontalAlignment= Alignment.CenterHorizontally) {
+        Button(onClick = {
+            // use passed in navController to navigate to another page
+            navController.navigate("about")
+        }) {
+            Text(text="About App")
+        }
+        LazyColumn{
+            items(beers){beer->
+                BeerCard(beerItem = beer, navController)
+            }
         }
     }
+
+
+
 
 //    Column {
 //        BeerCard(name="Bud Light")
@@ -91,8 +103,8 @@ fun Beers(beersManager: BeersManager){
 
 @Composable
 fun BeerCard(
-    beerItem: BeerItem
-
+    beerItem: BeerItem,
+    navController: NavController
 
 ){
     var isIconChanged by remember { mutableStateOf(false) }
@@ -104,6 +116,7 @@ fun BeerCard(
 
 
     ) {
+
         Row(
             modifier = Modifier
                 //.border(2.dp, Color.Black, shape = CircleShape)
@@ -130,44 +143,66 @@ fun BeerCard(
                     style = TextStyle(fontSize = 24.sp),
                     maxLines = 1
                 ) // end Text
-                Text(
-                    text = beerItem.price,
-                    modifier = Modifier.padding(end = 8.dp),
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = Color.White
-                )
+                Row() {
+                    Text(
+                        text = beerItem.price,
+                        modifier = Modifier.padding(end = 8.dp),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = Color.White
+                    )
+                    Button(
+                        onClick = {
+                            isIconChanged = !isIconChanged
+
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth()
+
+                    ) {
+                        Icon(
+                            modifier = Modifier
+                                .size(24.dp)
+                                .scale(1.25f),
+                            imageVector = if (isIconChanged) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
+                            contentDescription = "Add a favorite"
+                        )
+                    }
+                }
+
                 Column {
                     Row {
-                        Text(
-                            text = "Average Vote: " + BigDecimal(beerItem.rating.average).setScale(2,RoundingMode.HALF_UP).toString() + "/5",
-                            modifier = Modifier.padding(end = 8.dp),
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                            style = MaterialTheme.typography.bodySmall,
-                            color = Color.White
-                        )
-                        Text(
-                            text = "# of Reviews " + beerItem.rating.reviews.toString(),
-                            modifier = Modifier.padding(end = 8.dp),
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                            style = MaterialTheme.typography.bodySmall,
-                            color = Color.White
-                        )
-                        Button(
-                            onClick = {
-                                isIconChanged = !isIconChanged
-
-                            }
-                        ) {
-                            Icon(
-                                modifier = Modifier.size(24.dp).scale(2.5f),
-                                imageVector = if (isIconChanged) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
-                                contentDescription = "Add a favorite"
-                            )
-                        }
+//                        Text(
+//                            text = "Average Vote: " + BigDecimal(beerItem.rating.average).setScale(2,RoundingMode.HALF_UP).toString() + "/5",
+//                            modifier = Modifier.padding(end = 8.dp),
+//                            maxLines = 1,
+//                            overflow = TextOverflow.Ellipsis,
+//                            style = MaterialTheme.typography.bodySmall,
+//                            color = Color.White
+//                        )
+//                        Text(
+//                            text = "# of Reviews " + beerItem.rating.reviews.toString(),
+//                            modifier = Modifier.padding(end = 8.dp),
+//                            maxLines = 1,
+//                            overflow = TextOverflow.Ellipsis,
+//                            style = MaterialTheme.typography.bodySmall,
+//                            color = Color.White
+//                        )
+//                        Button(
+//                            onClick = {
+//                                isIconChanged = !isIconChanged
+//
+//                            }
+//                        ) {
+//                            Icon(
+//                                modifier = Modifier
+//                                    .size(24.dp)
+//                                    .scale(2.5f),
+//                                imageVector = if (isIconChanged) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
+//                                contentDescription = "Add a favorite"
+//                            )
+//                        }
                     }
                 }
 
@@ -179,12 +214,5 @@ fun BeerCard(
     }
 } // end BeerCard Composable
 
-@Composable
-fun Common(scrollState: ScrollState){
-//   Scaffold(
-//        bottomBar = {},){
-//
-//   }
-//        BottomNavItems
-//   )
-}
+
+
