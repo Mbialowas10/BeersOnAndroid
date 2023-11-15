@@ -1,9 +1,11 @@
 package com.mbialowas.beersonandroid.screens
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.mbialowas.beersonandroid.api.BeersManager
 
 @Composable
@@ -28,9 +30,7 @@ fun Navigation(beersManager: BeersManager){
         composable("about") {
             About(navController)
         }
-//        composable("likes") {
-//            LikesScreen()
-//        }
+
 
     }
 }
