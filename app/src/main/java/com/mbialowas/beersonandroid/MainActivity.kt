@@ -22,8 +22,10 @@ import androidx.navigation.compose.rememberNavController
 import com.mbialowas.beersonandroid.api.BeersManager
 import com.mbialowas.beersonandroid.navigation.BottomNavBar
 import com.mbialowas.beersonandroid.navigation.BottomNavItem
+import com.mbialowas.beersonandroid.screens.About
 
 import com.mbialowas.beersonandroid.screens.BeerApp
+import com.mbialowas.beersonandroid.screens.Beers
 
 import com.mbialowas.beersonandroid.ui.theme.BeersOnAndroidTheme
 
@@ -53,11 +55,13 @@ class MainActivity : ComponentActivity() {
                         NavHost(navController, startDestination = BottomNavItem.Home.route) {
                             composable(BottomNavItem.Home.route) {
                                 // Replace this with your 'Home' composable content
-                                Text("Home Screen")
+                                //Text("Home Screen")
+                                Beers(beersManager = beersManager,navController)
                             }
                             composable(BottomNavItem.About.route) {
                                 // Replace this with your 'About' composable content
-                                Text("About Screen")
+                                //Text("About Screen")
+                                About(navController)
                             }
                         }
                     }
