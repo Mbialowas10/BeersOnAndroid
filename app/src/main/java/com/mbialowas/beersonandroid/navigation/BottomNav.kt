@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Add
@@ -32,8 +33,9 @@ import androidx.navigation.NavController
 import com.mbialowas.beersonandroid.api.BeersManager
 import com.mbialowas.beersonandroid.screens.Beers
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+
 @Composable
 fun BottomNav(navController: NavController,beersManager: BeersManager){
     val screens = listOf("Beers", "Likes", "Profile")
