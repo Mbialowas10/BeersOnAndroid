@@ -19,7 +19,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.mbialowas.beersonandroid.api.BeersManager
 
-import com.mbialowas.beersonandroid.navigation.BottomNav
+
 
 @Composable
 fun BeerApp(beersManager: BeersManager){
