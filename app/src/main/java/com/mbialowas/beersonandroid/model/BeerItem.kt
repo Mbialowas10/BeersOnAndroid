@@ -1,6 +1,7 @@
 package com.mbialowas.beersonandroid.model
 
 
+import com.mbialowas.beersonandroid.db.FireStoreInstance
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
@@ -17,3 +18,8 @@ data class BeerItem(
     @Json(name = "rating")
     val rating: Rating
 )
+
+
+
+
+

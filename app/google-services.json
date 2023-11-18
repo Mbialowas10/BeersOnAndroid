@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "626177963769",
+    "project_id": "beersonandroid-20d6c",
+    "storage_bucket": "beersonandroid-20d6c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:626177963769:android:fb02ad83b9736986d75428",
+        "android_client_info": {
+          "package_name": "com.mbialowas.beersonandroid"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBP2Wxk8OzoWBC8fne66klAXkiIwxeCDCI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -30,6 +30,7 @@ import com.mbialowas.beersonandroid.screens.Beers
 import com.mbialowas.beersonandroid.ui.theme.BeersOnAndroidTheme
 
 class MainActivity : ComponentActivity() {
+    // api source --> https://sampleapis.com/api-list/beers
     @OptIn(ExperimentalMaterial3Api::class)
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {

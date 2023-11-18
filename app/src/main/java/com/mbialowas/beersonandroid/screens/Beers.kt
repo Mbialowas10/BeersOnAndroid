@@ -17,6 +17,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material.icons.materialIcon
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -39,7 +40,9 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
 import com.mbialowas.beersonandroid.api.BeersManager
+import com.mbialowas.beersonandroid.db.FireStoreInstance
 import com.mbialowas.beersonandroid.model.BeerItem
+import com.mbialowas.beersonandroid.model.BeerItemWithDocRef
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -154,6 +157,14 @@ fun BeerCard(
                         Button(
                             onClick = {
                                 isIconChanged = !isIconChanged
+                                if (isIconChanged){
+                                    // insert beer into firestore collection
+                                    //BeerItemWithDocRef.addBeerItemToFirestore(beerItem)
+                                    BeerItemWithDocRef(beerItem)
+                                }else{
+                                    FireStoreInstance.removeBeerItemFromFiretore(beerItem)
+                                }
+
 
                             }
                         ) {
