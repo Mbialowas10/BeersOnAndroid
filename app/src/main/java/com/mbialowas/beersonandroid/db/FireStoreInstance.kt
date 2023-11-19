@@ -1,6 +1,7 @@
 package com.mbialowas.beersonandroid.db
 
 import android.util.Log
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.mbialowas.beersonandroid.model.BeerItem
 
@@ -16,7 +17,4 @@ object FireStoreInstance {
         }
         return instance!!
     }
-
-
-
 }

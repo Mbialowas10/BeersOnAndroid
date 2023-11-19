@@ -17,7 +17,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
-import androidx.compose.material.icons.materialIcon
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -42,7 +41,6 @@ import coil.compose.rememberImagePainter
 import com.mbialowas.beersonandroid.api.BeersManager
 import com.mbialowas.beersonandroid.db.FireStoreInstance
 import com.mbialowas.beersonandroid.model.BeerItem
-import com.mbialowas.beersonandroid.model.BeerItemWithDocRef
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -92,6 +90,13 @@ fun BeerCard(
 
 ){
     var isIconChanged by remember { mutableStateOf(false) }
+    val fsInstance = FireStoreInstance.getInstance()
+
+    /* Maintain a list to store added BeerItems with their DocumentReferences
+    val addedBeerItems: MutableList<BeerItemWithDocRef> = mutableListOf()
+    */
+
+
     Column(modifier = Modifier
 
         .border(1.dp, Color.Red, shape = RectangleShape)
@@ -157,12 +162,33 @@ fun BeerCard(
                         Button(
                             onClick = {
                                 isIconChanged = !isIconChanged
-                                if (isIconChanged){
-                                    // insert beer into firestore collection
-                                    //BeerItemWithDocRef.addBeerItemToFirestore(beerItem)
-                                    BeerItemWithDocRef(beerItem)
-                                }else{
-                                    FireStoreInstance.removeBeerItemFromFiretore(beerItem)
+
+                                val beerDocRef = fsInstance.collection("favorites").document(beerItem.id.toString())
+
+                                if (isIconChanged) {
+                                    // Add beer item to Firestore favorites collection
+                                    beerDocRef.set(beerItem)
+                                        .addOnSuccessListener {
+                                            // Success message or further action if needed
+                                            // Toast, Snackbar, etc.
+                                            Log.d("MJB", "Inserted ${beerItem.name}")
+                                        }
+                                        .addOnFailureListener { e ->
+                                            // Handle failure
+                                            Log.d("Error", "${e.message}")
+                                        }
+                                } else {
+                                    // Remove beer item from Firestore favorites collection
+                                    beerDocRef.delete()
+                                        .addOnSuccessListener {
+                                            // Success message or further action if needed
+                                            // Toast, Snackbar, etc.
+                                            Log.d("MJB", "Deleted ${beerItem.name}")
+                                        }
+                                        .addOnFailureListener { e ->
+                                            // Handle failure
+                                            Log.d("Error", "${e.message}")
+                                        }
                                 }
 
 
