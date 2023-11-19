@@ -20,6 +20,7 @@ import com.mbialowas.beersonandroid.screens.Navigation
 fun BottomNavBar(navController: NavHostController) {
     val items = listOf(
         BottomNavItem.Home,
+        BottomNavItem.Favorite,
         BottomNavItem.About
     )
 

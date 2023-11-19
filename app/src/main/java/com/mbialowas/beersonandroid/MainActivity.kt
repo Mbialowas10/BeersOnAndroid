@@ -26,6 +26,7 @@ import com.mbialowas.beersonandroid.screens.About
 
 import com.mbialowas.beersonandroid.screens.BeerApp
 import com.mbialowas.beersonandroid.screens.Beers
+import com.mbialowas.beersonandroid.screens.FavoriteScreen
 
 import com.mbialowas.beersonandroid.ui.theme.BeersOnAndroidTheme
 
@@ -58,6 +59,11 @@ class MainActivity : ComponentActivity() {
                                 // Replace this with your 'Home' composable content
                                 //Text("Home Screen")
                                 Beers(beersManager = beersManager,navController)
+                            }
+                            composable(BottomNavItem.Favorite.route) {
+                                // Replace this with your 'Home' composable content
+                                //Text("Home Screen")
+                                FavoriteScreen(beersManager = beersManager,navController)
                             }
                             composable(BottomNavItem.About.route) {
                                 // Replace this with your 'About' composable content

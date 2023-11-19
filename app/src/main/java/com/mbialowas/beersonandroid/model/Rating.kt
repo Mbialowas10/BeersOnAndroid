@@ -10,4 +10,9 @@ data class Rating(
     val average: Double,
     @Json(name = "reviews")
     val reviews: Int
-)
+){
+    // Default (no-argument) constructor
+    // default constructors need to avoid the following error
+    // Rating does not define a no-argument constructor. If you are using ProGuard, make sure these constructors are not stripped (found in field 'rating')
+    constructor() : this(0.0, 0)
+}
