@@ -22,75 +22,73 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
+import com.mbialowas.beersonandroid.navigation.BottomNavBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen(auth: FirebaseAuth, navController: NavController) {
+fun LoginScreen(navController: NavController) {
 
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var errorMessage by remember { mutableStateOf("") }
-    
-    if (auth.currentUser == null ){
-    
-        Column {
-            // Email and password input fields
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(16.dp),
-                verticalArrangement = Arrangement.Center
-            ) {
-                // Email input field
-                TextField(
-                    value = email,
-                    onValueChange = { email = it },
-                    label = { Text("Email") },
-                    modifier = Modifier.fillMaxWidth()
-                )
-                Spacer(modifier = Modifier.height(16.dp))
+    var auth: FirebaseAuth = Firebase.auth
 
-                // Password input field
-                TextField(
-                    value = password,
-                    onValueChange = { password = it },
-                    label = { Text("Password") },
-                    modifier = Modifier.fillMaxWidth(),
-                    visualTransformation = PasswordVisualTransformation()
-                )
-                Spacer(modifier = Modifier.height(16.dp))
 
-                // Error message display
-                Text(
-                    text = errorMessage,
-                    color = Color.Red,
-                    modifier = Modifier.fillMaxWidth(),
-                    textAlign = TextAlign.Center
-                )
+    Column {
+        // Email and password input fields
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp),
+            verticalArrangement = Arrangement.Center
+        ) {
+            // Email input field
+            TextField(
+                value = email,
+                onValueChange = { email = it.trim() },
+                label = { Text("Email") },
+                modifier = Modifier.fillMaxWidth()
+            )
+            Spacer(modifier = Modifier.height(16.dp))
 
-                Button(onClick = {
-                    auth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener { task ->
-                            if (task.isSuccessful) {
-                                // Login successful, navigate to home screen
-                                navController.navigate("home")
-                            } else {
-                                // Login failed, show error message
-                                errorMessage =
-                                    "Login failed: ${task.exception?.message ?: "Unknown error"}"
-                            }
+            // Password input field
+            TextField(
+                value = password,
+                onValueChange = { password = it.trim() },
+                label = { Text("Password") },
+                modifier = Modifier.fillMaxWidth(),
+                visualTransformation = PasswordVisualTransformation()
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Error message display
+            Text(
+                text = errorMessage,
+                color = Color.Red,
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Center
+            )
+
+            Button(onClick = {
+                auth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            // Login successful, navigate to home screen
+                            navController.navigate("home")
+                        } else {
+                            // Login failed, show error message
+                            errorMessage =
+                                "Login failed: ${task.exception?.message ?: "Unknown error"}"
                         }
-                }) {
-                    Text("Login")
-                }
-
-                Text(errorMessage)
+                    }
+            }) {
+                Text("Login")
             }
-        }
 
-    }
-    else{
-        Text(text = "User logged in")
+            Text(errorMessage)
+        }
     }
 }

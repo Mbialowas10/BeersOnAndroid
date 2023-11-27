@@ -26,7 +26,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
@@ -38,6 +37,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
+import com.google.firebase.auth.FirebaseUser
 import com.mbialowas.beersonandroid.api.BeersManager
 import com.mbialowas.beersonandroid.db.FireStoreInstance
 import com.mbialowas.beersonandroid.model.BeerItem
@@ -56,13 +56,26 @@ fun Beers(beersManager: BeersManager, navController: NavController){
     for (beer in beers){
         Log.i("name", "${beer.rating}")
     }
-    Column(horizontalAlignment= Alignment.CenterHorizontally) {
-        Button(onClick = {
-            // use passed in navController to navigate to another page
-            navController.navigate("about")
-        }) {
-            Text(text="About App")
+    Column() {
+        Row{
+            Button(onClick = {
+                // use passed in navController to navigate to another page
+                navController.navigate("about")
+            }) {
+                Text(text="About App Section")
+            }
+            Button(
+                onClick = {
+                    //auth.signOut()
+                    navController.navigate("login")
+                },
+                modifier = Modifier.padding(8.dp)
+            ){
+                // check auth and provide signout button
+                Text(text="Sign out Now")
+            }
         }
+
         LazyColumn{
             items(beers){beer->
                 BeerCard(beerItem = beer, navController)

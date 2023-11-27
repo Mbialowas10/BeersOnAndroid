@@ -14,10 +14,13 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.google.firebase.auth.FirebaseAuth
 import com.mbialowas.beersonandroid.screens.Navigation
 
 @Composable
 fun BottomNavBar(navController: NavHostController) {
+    //var enableNavigationItems = (user.currentUser != null)
+
     val items = listOf(
         BottomNavItem.Home,
         BottomNavItem.Favorite,
