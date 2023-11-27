@@ -58,10 +58,11 @@ class MainActivity : ComponentActivity() {
                     val user = auth?.currentUser
                     if (user == null){
                         // load SignIn Composable
-                        Log.i("MJB", "User not logged in")
+
                         auth?.let { AuthenticateUserScreen(auth= it, navController = navController) }
                     }else {
-                        BeerApp(beersManager) // load the beer list
+                        // user logged in, load content as you normally would
+                        auth?.let { BeerApp(beersManager, it) } // load the beer list
                         // begin scaffold
                         Scaffold(
                             bottomBar = { BottomNavBar(navController) }

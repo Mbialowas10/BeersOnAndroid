@@ -1,5 +1,6 @@
 package com.mbialowas.beersonandroid.screens
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -28,19 +29,14 @@ import com.google.firebase.auth.auth
 
 @Composable
 fun AuthenticateUserScreen(auth: FirebaseAuth, navController: NavController){
-    var user by remember { mutableStateOf(Firebase.auth.currentUser) }
+    val currentUser = auth.currentUser
 
     Column {
-        if (user == null){
-            Text("Not logged in")
-            Button(onClick = {
-                // start sign in
-                LoginScreen(auth = auth, navController = navController)
-            }) {
-                Text("Sign in here")
-                }
+        if (currentUser == null){
+            LoginScreen(auth = auth, navController = navController )
+            Log.i("MJB", "User not logged in")
         }else{
-            Text("Welcome ${user!!.displayName}")
+            Text("Welcome ${auth.currentUser!!.displayName}")
             Button(onClick = {
 
             }) {

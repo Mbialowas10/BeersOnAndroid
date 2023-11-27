@@ -17,23 +17,24 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.google.firebase.auth.FirebaseAuth
 import com.mbialowas.beersonandroid.api.BeersManager
 
 
 
 @Composable
-fun BeerApp(beersManager: BeersManager){
+fun BeerApp(beersManager: BeersManager,auth: FirebaseAuth){
 
     // list of beers on home page
     //Beers(BeersManager())
-    Navigation(beersManager)
+    Navigation(beersManager,auth)
 
 }
 
 
 
 @Composable
-fun Navigation(beersManager: BeersManager){
+fun Navigation(beersManager: BeersManager,auth: FirebaseAuth){
     val navController = rememberNavController()
 
     NavHost(
@@ -41,9 +42,8 @@ fun Navigation(beersManager: BeersManager){
         startDestination = "beers"
     ) {
         composable("login"){
-            AuthenticateUserScreen()
+            AuthenticateUserScreen(auth = auth, navController = navController)
         }
-
         composable("beers") {
             Beers(beersManager = beersManager,navController)
         }
