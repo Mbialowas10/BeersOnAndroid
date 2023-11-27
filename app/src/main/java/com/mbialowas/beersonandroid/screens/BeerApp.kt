@@ -41,9 +41,7 @@ fun Navigation(beersManager: BeersManager,auth: FirebaseAuth){
         navController = navController,
         startDestination = "beers"
     ) {
-        composable("login"){
-            AuthenticateUserScreen(auth = auth, navController = navController)
-        }
+
         composable("beers") {
             Beers(beersManager = beersManager,navController)
         }

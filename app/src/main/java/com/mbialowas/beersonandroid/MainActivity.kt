@@ -25,11 +25,12 @@ import com.mbialowas.beersonandroid.api.BeersManager
 import com.mbialowas.beersonandroid.navigation.BottomNavBar
 import com.mbialowas.beersonandroid.navigation.BottomNavItem
 import com.mbialowas.beersonandroid.screens.About
-import com.mbialowas.beersonandroid.screens.AuthenticateUserScreen
+
 
 import com.mbialowas.beersonandroid.screens.BeerApp
 import com.mbialowas.beersonandroid.screens.Beers
 import com.mbialowas.beersonandroid.screens.FavoriteScreen
+import com.mbialowas.beersonandroid.screens.LoginScreen
 
 import com.mbialowas.beersonandroid.ui.theme.BeersOnAndroidTheme
 
@@ -54,12 +55,35 @@ class MainActivity : ComponentActivity() {
 
                     val navController = rememberNavController()
 
+                    // define routes above to avoid error
+                    NavHost(navController, startDestination = "login") {
+                        composable("login"){
+                            auth?.let { it1 -> LoginScreen(auth = it1, navController = navController) }
+                        }
+
+                        composable(BottomNavItem.Home.route) {
+                            // Replace this with your 'Home' composable content
+                            //Text("Home Screen")
+                            Beers(beersManager = beersManager, navController)
+                        }
+                        composable(BottomNavItem.Favorite.route) {
+                            // Replace this with your 'Home' composable content
+                            //Text("Home Screen")
+                            FavoriteScreen(beersManager = beersManager, navController)
+                        }
+                        composable(BottomNavItem.About.route) {
+                            // Replace this with your 'About' composable content
+                            //Text("About Screen")
+                            About(navController)
+                        }
+                    }
+
                     // authenticate user
                     val user = auth?.currentUser
                     if (user == null){
                         // load SignIn Composable
+                        navController.navigate("login")
 
-                        auth?.let { AuthenticateUserScreen(auth= it, navController = navController) }
                     }else {
                         // user logged in, load content as you normally would
                         auth?.let { BeerApp(beersManager, it) } // load the beer list
@@ -67,23 +91,7 @@ class MainActivity : ComponentActivity() {
                         Scaffold(
                             bottomBar = { BottomNavBar(navController) }
                         ) {
-                            NavHost(navController, startDestination = BottomNavItem.Home.route) {
-                                composable(BottomNavItem.Home.route) {
-                                    // Replace this with your 'Home' composable content
-                                    //Text("Home Screen")
-                                    Beers(beersManager = beersManager, navController)
-                                }
-                                composable(BottomNavItem.Favorite.route) {
-                                    // Replace this with your 'Home' composable content
-                                    //Text("Home Screen")
-                                    FavoriteScreen(beersManager = beersManager, navController)
-                                }
-                                composable(BottomNavItem.About.route) {
-                                    // Replace this with your 'About' composable content
-                                    //Text("About Screen")
-                                    About(navController)
-                                }
-                            }
+
                         }
                     }
                 }
