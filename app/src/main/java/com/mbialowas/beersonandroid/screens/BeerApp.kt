@@ -40,6 +40,10 @@ fun Navigation(beersManager: BeersManager){
         navController = navController,
         startDestination = "beers"
     ) {
+        composable("login"){
+            AuthenticateUserScreen()
+        }
+
         composable("beers") {
             Beers(beersManager = beersManager,navController)
         }
