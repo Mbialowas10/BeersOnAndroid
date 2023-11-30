@@ -45,6 +45,7 @@ fun SignUpScreen(navController: NavController) {
     var password by remember { mutableStateOf("") }
     var errorMessage by remember { mutableStateOf("") }
     var auth: FirebaseAuth = Firebase.auth
+    var TAG = "MJB"
 
 
     Column {
@@ -83,26 +84,37 @@ fun SignUpScreen(navController: NavController) {
             )
             Row {
                 Button(onClick = {
-                    auth.createUserWithEmailAndPassword(email,password)
-                        .addOnCompleteListener(this) { task ->
-                            if (task.isSuccessful) {
-                                // Sign in success, update UI with the signed-in user's information
-                                Log.d(TAG, "createUserWithEmail:success")
-                                val user = auth.currentUser
-                            }else{
-                                // If sign in fails, display a message to the user.
-                                Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                            }
-                }) {
+                    createUserWithEmailAndPassword(email,password)
+                    val user = Firebase.auth.currentUser
+                    if (user != null){
+                       navController.navigate("login")
+                    }else{
+                        navController.navigate("register") // perhaps redundant?
+                    }
+
+                }
+
+                ) {
                     Text("Login")
                 }
 
             }
-            
-
             Text(errorMessage)
         }
     }
+}
+private fun createUserWithEmailAndPassword(email: String, password: String) {
+    Firebase.auth.createUserWithEmailAndPassword(email, password)
+        .addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                // Sign in success, update UI with the signed-in user's information
+
+                Log.d(TAG, "createUserWithEmail:success")
+            } else {
+                // If sign in fails, display a message to the user.
+                Log.w(TAG, "createUserWithEmail:failure", task.exception)
+            }
+        }
 }
 
 

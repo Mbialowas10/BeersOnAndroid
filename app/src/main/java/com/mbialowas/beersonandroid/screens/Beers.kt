@@ -37,7 +37,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
+import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.auth
 import com.mbialowas.beersonandroid.api.BeersManager
 import com.mbialowas.beersonandroid.db.FireStoreInstance
 import com.mbialowas.beersonandroid.model.BeerItem
@@ -176,7 +178,12 @@ fun BeerCard(
                             onClick = {
                                 isIconChanged = !isIconChanged
 
-                                val beerDocRef = fsInstance.collection("favorites").document(beerItem.id.toString())
+                                // get current user and link farorites to that user
+                                val user = Firebase.auth.currentUser
+
+                                //val beerDocRef = fsInstance.collection("favorites").document(beerItem.id.toString())
+                                val beerDocRef = fsInstance.collection("users").document(user?.displayName.toString()).collection("farvoites")
+                                    .document(beerItem.id.toString())
 
                                 if (isIconChanged) {
                                     // Add beer item to Firestore favorites collection
