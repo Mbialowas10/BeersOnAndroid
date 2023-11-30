@@ -15,11 +15,15 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.google.firebase.auth.FirebaseAuth
+import com.mbialowas.beersonandroid.navigation.BottomNavItem.About.icon
 import com.mbialowas.beersonandroid.screens.Navigation
 
 @Composable
 fun BottomNavBar(navController: NavHostController) {
-    //var enableNavigationItems = (user.currentUser != null)
+
+    // Get the currently signed-in user
+    val auth: FirebaseAuth = FirebaseAuth.getInstance()
+    val currentUser = auth.currentUser
 
     val items = listOf(
         BottomNavItem.Home,
@@ -51,6 +55,8 @@ fun BottomNavBar(navController: NavHostController) {
                         restoreState = true
                     }
                 },
+                // enable nav item links only when user signed in
+                enabled = currentUser != null,
                 icon = {
                     Icon(
                         imageVector = item.icon,
