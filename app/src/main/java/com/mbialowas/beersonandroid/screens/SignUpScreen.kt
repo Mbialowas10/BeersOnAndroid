@@ -1,5 +1,7 @@
 package com.mbialowas.beersonandroid.screens
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -37,7 +39,7 @@ import com.mbialowas.beersonandroid.navigation.BottomNavBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen(navController: NavController) {
+fun SignUpScreen(navController: NavController) {
 
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -81,26 +83,20 @@ fun LoginScreen(navController: NavController) {
             )
             Row {
                 Button(onClick = {
-                    auth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener { task ->
+                    auth.createUserWithEmailAndPassword(email,password)
+                        .addOnCompleteListener(this) { task ->
                             if (task.isSuccessful) {
-                                // Login successful, navigate to home screen
-                                navController.navigate("home")
-                            } else {
-                                // Login failed, show error message
-                                errorMessage =
-                                    "Login failed: ${task.exception?.message ?: "Unknown error"}"
+                                // Sign in success, update UI with the signed-in user's information
+                                Log.d(TAG, "createUserWithEmail:success")
+                                val user = auth.currentUser
+                            }else{
+                                // If sign in fails, display a message to the user.
+                                Log.w(TAG, "createUserWithEmail:failure", task.exception)
                             }
-                        }
                 }) {
                     Text("Login")
                 }
 
-                HyperlinkText(
-                    text= "Don't have an account? Register here."
-                ) {
-                    navController.navigate("register")
-                }
             }
             
 
@@ -108,14 +104,6 @@ fun LoginScreen(navController: NavController) {
         }
     }
 }
-@Composable
-fun HyperlinkText(text: String, onClick: () -> Unit) {
-    Text(
-        text = text,
-        color = Color.Blue,
-        fontSize = 16.sp,
-        modifier = Modifier.clickable { onClick() }
-    )
-}
+
 
 
