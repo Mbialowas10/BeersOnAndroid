@@ -182,7 +182,7 @@ fun BeerCard(
                                 val user = Firebase.auth.currentUser
 
                                 //val beerDocRef = fsInstance.collection("favorites").document(beerItem.id.toString())
-                                val beerDocRef = fsInstance.collection("users").document(user?.displayName.toString()).collection("farvoites")
+                                val beerDocRef = fsInstance.collection("users").document(user?.email.toString()).collection("farvoites")
                                     .document(beerItem.id.toString())
 
                                 if (isIconChanged) {
