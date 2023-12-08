@@ -22,7 +22,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
@@ -96,26 +98,34 @@ fun LoginScreen(navController: NavController) {
                     Text("Login")
                 }
 
-                HyperlinkText(
-                    text= "Don't have an account? Register here."
-                ) {
-                    navController.navigate("register")
-                }
+                ClickableText(
+                    text = AnnotatedString(" Don't have an account? Register here."),
+                    onClick = {navController.navigate("register") },
+                    style = TextStyle(
+                        color = Color.Blue,
+                        fontSize = 16.sp,
+                    )
+                )
+//                HyperlinkText(
+//                    text= "Don't have an account? Register here."
+//                ) {
+//                    navController.navigate("register")
+//                }
             }
-            
+
 
             Text(errorMessage)
         }
     }
 }
-@Composable
-fun HyperlinkText(text: String, onClick: () -> Unit) {
-    Text(
-        text = text,
-        color = Color.Blue,
-        fontSize = 16.sp,
-        modifier = Modifier.clickable { onClick() }
-    )
-}
+//@Composable
+//fun HyperlinkText(text: String, onClick: () -> Unit) {
+//    Text(
+//        text = text,
+//        color = Color.Blue,
+//        fontSize = 16.sp,
+//        modifier = Modifier.clickable { onClick() }
+//    )
+//}
 
 
