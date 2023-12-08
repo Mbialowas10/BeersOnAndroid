@@ -106,26 +106,11 @@ fun LoginScreen(navController: NavController) {
                         fontSize = 16.sp,
                     )
                 )
-//                HyperlinkText(
-//                    text= "Don't have an account? Register here."
-//                ) {
-//                    navController.navigate("register")
-//                }
             }
-
-
             Text(errorMessage)
         }
     }
 }
-//@Composable
-//fun HyperlinkText(text: String, onClick: () -> Unit) {
-//    Text(
-//        text = text,
-//        color = Color.Blue,
-//        fontSize = 16.sp,
-//        modifier = Modifier.clickable { onClick() }
-//    )
-//}
+
 
 
