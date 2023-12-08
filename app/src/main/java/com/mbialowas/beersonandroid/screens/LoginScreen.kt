@@ -79,7 +79,11 @@ fun LoginScreen(navController: NavController) {
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center
             )
-            Row {
+            Row (
+                modifier = Modifier.align(
+                    Alignment.CenterHorizontally
+                )
+            ) {
                 Button(onClick = {
                     auth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener { task ->
@@ -95,12 +99,16 @@ fun LoginScreen(navController: NavController) {
                 }) {
                     Text("Login")
                 }
-
-                HyperlinkText(
-                    text= "Don't have an account? Register here."
-                ) {
-                    navController.navigate("register")
-                }
+            }
+            Row (
+                modifier = Modifier.align(
+                    Alignment.CenterHorizontally
+                )) {
+                        HyperlinkText(
+                            text= "Don't have an account? Register here."
+                        ) {
+                            navController.navigate("register")
+                    }
             }
             
 
