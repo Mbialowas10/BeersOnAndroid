@@ -20,6 +20,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.SpanStyle
@@ -104,13 +105,13 @@ fun LoginScreen(navController: NavController) {
                 modifier = Modifier.align(
                     Alignment.CenterHorizontally
                 )) {
-                        HyperlinkText(
-                            text= "Don't have an account? Register here."
-                        ) {
-                            navController.navigate("register")
-                    }
+                HyperlinkText(
+                    text= "Don't have an account? Register here."
+                ) {
+                    navController.navigate("register")
+                }
             }
-            
+
 
             Text(errorMessage)
         }
@@ -125,5 +126,3 @@ fun HyperlinkText(text: String, onClick: () -> Unit) {
         modifier = Modifier.clickable { onClick() }
     )
 }
-
-
