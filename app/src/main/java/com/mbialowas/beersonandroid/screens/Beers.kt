@@ -48,6 +48,7 @@ import java.math.RoundingMode
 
 @Composable
 fun Beers(beersManager: BeersManager, navController: NavController){
+    //val beers = beersManager.beersResponse.value
     val beers = beersManager.beersResponse.value
     Log.d("beers", "$beers")
     val name:String
