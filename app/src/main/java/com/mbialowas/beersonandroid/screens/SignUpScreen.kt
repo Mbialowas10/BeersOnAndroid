@@ -68,7 +68,10 @@ fun SignUpScreen(navController: NavController) {
             // Password input field
             TextField(
                 value = password,
-                onValueChange = { password = it.trim() },
+                onValueChange = { newPassword ->
+                    password = newPassword.trim()
+                    errorMessage = validatePassword(newPassword)
+                },
                 label = { Text("Password") },
                 modifier = Modifier.fillMaxWidth(),
                 visualTransformation = PasswordVisualTransformation()
@@ -88,14 +91,12 @@ fun SignUpScreen(navController: NavController) {
                     val user = Firebase.auth.currentUser
                     if (user != null){
                        navController.navigate("login")
-                    }else{
-                        navController.navigate("register") // perhaps redundant?
                     }
 
                 }
 
                 ) {
-                    Text("Login")
+                    Text("Register") // change text from Login to Register
                 }
 
             }
@@ -103,6 +104,15 @@ fun SignUpScreen(navController: NavController) {
         }
     }
 }
+
+fun validatePassword(newPassword: String): String {
+    return if (newPassword.length < 8) {
+        "Password must be at least 8 characters long."
+    } else {
+        ""
+    }
+}
+
 private fun createUserWithEmailAndPassword(email: String, password: String) {
     Firebase.auth.createUserWithEmailAndPassword(email, password)
         .addOnCompleteListener { task ->
