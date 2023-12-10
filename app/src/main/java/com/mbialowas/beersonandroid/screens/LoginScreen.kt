@@ -20,6 +20,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
@@ -81,7 +82,12 @@ fun LoginScreen(navController: NavController) {
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center
             )
-            Row {
+            Row(
+                modifier = Modifier.align(
+
+                    Alignment.CenterHorizontally
+                )
+            ) {
                 Button(onClick = {
                     auth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener { task ->
@@ -98,16 +104,18 @@ fun LoginScreen(navController: NavController) {
                     Text("Login")
                 }
 
+
                 ClickableText(
                     text = AnnotatedString(" Don't have an account? Register here."),
-                    onClick = {navController.navigate("register") },
+                    onClick = { navController.navigate("register") },
                     style = TextStyle(
                         color = Color.Blue,
                         fontSize = 16.sp,
                     )
                 )
+
+                Text(errorMessage)
             }
-            Text(errorMessage)
         }
     }
 }
